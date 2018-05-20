@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:panel id="pnlAdministracion" header="Administracion de Libros">
+            <h:form id="frmAdministracion" enctype="multipart/form-data">
+                <p:panelGrid id="pnlAdministracion" columns="3">
+                    <p:commandButton value="Agregar Libro" id="btnAgregarLibroAdministracion" oncomplete="PF('agregarLibro').show()" update=":frmAgregarLibro" />
+                    <p:commandButton value="Buscar Libro" id="btnBuscarAministracion" oncomplete="PF('buscarLibro').show()" update=":frmBuscarLibro" />
+                    <p:commandButton value="Reiniciar Tabla" id="btnReiniciarTabla" actionListener="#{librosManagedBean.reinciar()}" update=":frmTblMuestraLibros" />
+                </p:panelGrid>
+            </h:form>
+        </p:panel>
+        <p:panel id="pnlTblMuestraLibros" header="Libros Cargados">
+            <h:form id="frmTblMuestraLibros" enctype="multipart/form-data">
+                <p:panelGrid columns="4">
+                    <p:dataTable value="#{librosManagedBean.listadoLibros.listaLibros}" var="cadLibro" emptyMessage="No hay Libros Cargados">
+                        <p:column headerText="Titulo">
+                            <p:outputLabel value="#{cadLibro.titulo}"/>
+                        </p:column>
+                        <p:column headerText="Autor">
+                            <p:outputLabel value="#{cadLibro.autor}"/>
+                        </p:column>
+                        <p:column headerText="Precio">
+                            <p:outputLabel value="#{cadLibro.precio}"/>
+                        </p:column>
+                        <p:column headerText="Isbn">
+                            <p:outputLabel value="#{cadLibro.isbn}"/>
+                        </p:column>
+                    </p:dataTable>
+
+
+                </p:panelGrid>
+            </h:form>
+        </p:panel>
+        <p:dialog widgetVar="agregarLibro" header="Agregar Libro" resizable="false" showEffect="explode" hideEffect="explode" modal="true">
+            <h:form id="frmAgregarLibro">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Titulo: "/>
+                    <p:inputText value="#{librosManagedBean.titulo}" required="true"/>
+                    <p:outputLabel value="Autor: "/>
+                    <p:inputText value="#{librosManagedBean.autor}" required="true"/>
+                    <p:outputLabel value="Precio: "/>
+                    <p:inputText value="#{librosManagedBean.precio}" required="true"/>
+                    <p:outputLabel value="Isbn: "/>
+                    <p:inputText value="#{librosManagedBean.isbn}" required="true"/>
+                    <p:commandButton id="btnCerrarLibro" value="Salir" oncomplete="PF('agregarLibro').hide()"/>
+                    <p:commandButton value="Agregar Libro" actionListener="#{librosManagedBean.agregarLibro()}" oncomplete="PF('agregarLibro').hide()" update=":frmTblMuestraLibros">  
+                        <p:confirm header="Pedido de Confirmacion" message="¿Confirma Agregar Libro?" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+        <p:confirmDialog id="confirmacionLibro" global="true" showEffect="fade" hideEffect="fade">
+            <h:form id="frmConfirmacionOperacionLibro">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" style="float: right;"/>
+            </h:form>
+        </p:confirmDialog>
+        <p:dialog widgetVar="buscarLibro" header="Agregar Libro" resizable="false" showEffect="explode" hideEffect="explode" modal="true">
+            <h:form id="frmBuscarLibro">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Ingrese Titulo de libro a buscar: "/>
+                    <p:inputText value="#{librosManagedBean.tituloABuscar}" required="true"/>
+                    <p:commandButton id="btnCerrarLibro" value="Salir" oncomplete="PF('buscarLibro').hide()"/>
+                    <p:commandButton value="Buscar Libro" oncomplete="PF('buscarLibro').hide()" actionListener="#{librosManagedBean.buscarLibro()}" update=":frmTblMuestraLibrosBuscados">  
+                        <p:confirm header="Pedido de Confirmacion" message="¿Confirma Busqueda de Libro?" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+        <p:panel id="pnlTblMuestraLibrosBuscados" header="Libros Buscados">
+            <h:form id="frmTblMuestraLibrosBuscados" enctype="multipart/form-data">
+                <p:panelGrid columns="4">
+                    <p:dataTable value="#{librosManagedBean.listadoLibrosAux.listaLibros}" var="cadLibroB" emptyMessage="No hay Libros Buscados">
+                        <p:column headerText="Titulo">
+                            <p:outputLabel value="#{cadLibroB.titulo}"/>
+                        </p:column>
+                        <p:column headerText="Autor">
+                            <p:outputLabel value="#{cadLibroB.autor}"/>
+                        </p:column>
+                        <p:column headerText="Precio">
+                            <p:outputLabel value="#{cadLibroB.precio}"/>
+                        </p:column>
+                        <p:column headerText="Isbn">
+                            <p:outputLabel value="#{cadLibroB.isbn}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panelGrid>
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
