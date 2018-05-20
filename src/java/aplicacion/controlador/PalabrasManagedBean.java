@@ -30,6 +30,7 @@ public class PalabrasManagedBean implements Serializable {
         listadoPalabraAux=new ListaPalabra();
     }
     public void agregarPalabra(){
+        if(controlarV()==true){
         for(int i=0;i<listadoPalabra.getListadoPalabra().size();i++){
             if(listadoPalabra.getListadoPalabra().get(i).charAt(0)>palabraIngresada.charAt(0)){
                 for(int j=i;j<=listadoPalabra.getListadoPalabra().size()-1;j++){
@@ -43,8 +44,18 @@ public class PalabrasManagedBean implements Serializable {
         for(int h=0;h<listadoPalabraAux.getListadoPalabra().size();h++){
             listadoPalabra.getListadoPalabra().add(listadoPalabraAux.getListadoPalabra().get(h));
         }
-        listadoPalabraAux.getListadoPalabra().clear();   
+        listadoPalabraAux.getListadoPalabra().clear();
+        }
     }
+    public boolean controlarV(){
+        boolean control=true;
+        if ("".equals(palabraIngresada)) {
+            control=false;
+        }
+        return control;
+        
+    }
+    
 
     /**
      * @return the palabraIngresada
