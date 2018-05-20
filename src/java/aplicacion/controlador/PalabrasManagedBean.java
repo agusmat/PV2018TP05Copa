@@ -31,12 +31,12 @@ public class PalabrasManagedBean implements Serializable {
     }
     public void agregarPalabra(){
         for(int i=0;i<listadoPalabra.getListadoPalabra().size();i++){
-            if(listadoPalabra.getListadoPalabra().get(i).charAt(0)>=palabraIngresada.charAt(0)){
-                for(int j=i;j<listadoPalabra.getListadoPalabra().size();j++){
+            if(listadoPalabra.getListadoPalabra().get(i).charAt(0)>palabraIngresada.charAt(0)){
+                for(int j=i;j<=listadoPalabra.getListadoPalabra().size()-1;j++){
                     listadoPalabraAux.getListadoPalabra().add(listadoPalabra.getListadoPalabra().get(j));
                     listadoPalabra.getListadoPalabra().remove(j);
                 }
-
+            break;    
             }
         }
         listadoPalabra.getListadoPalabra().add(palabraIngresada);
